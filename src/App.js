@@ -1,25 +1,36 @@
-import React from 'react';
+import React,{createContext,useContext,useReducer, useState} from 'react';
+import { reducer, initialState } from  './reducers/Usereducers'
 import logo from './logo.svg';
 import './App.css';
+import Create from './components/CreateNote'
+import AllNotes from './components/AllNotes'
+export const userContext = createContext();
 
 function App() {
+const [chang,setChang]=useState(false)
+const change=()=>{
+  if(chang==false){
+    setChang(true)
+  }
+  else{
+    setChang(true)
+  }
+}
+
+
+  
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <userContext.Provider value={{state,dispatch}}>
+     
+      <Create change={change}/>
+      <AllNotes/>
+      
+    
+
+    </userContext.Provider>
   );
 }
 
